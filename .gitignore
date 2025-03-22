@@ -6,3 +6,4 @@
 .env
 .DS_Store
 *.log
+.phpunit.cache

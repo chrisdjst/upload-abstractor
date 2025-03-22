@@ -1,10 +1,10 @@
 <?php
-namespace App\Upload;
+namespace UploadAbstractor;
 
-use App\Upload\Enums\UploadDriver;
-use App\Upload\Interfaces\UploadInterface;
-use App\Upload\Drivers\S3Upload;
-use App\Upload\Drivers\LocalUpload;
+use UploadAbstractor\Enums\UploadDriver;
+use UploadAbstractor\Interfaces\UploadInterface;
+use UploadAbstractor\Drivers\S3Upload;
+use UploadAbstractor\Drivers\LocalUpload;
 
 class UploadFile
 {

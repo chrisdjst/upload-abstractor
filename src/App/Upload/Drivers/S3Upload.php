@@ -1,9 +1,10 @@
 <?php
-namespace App\Upload\Drivers;
+namespace UploadAbstractor\Drivers;
 
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
-use App\Upload\Interfaces\UploadInterface;
+use UploadAbstractor\Interfaces\UploadInterface;
+use UploadAbstractor\Support\Env;
 
 class S3Upload implements UploadInterface
 {
@@ -52,26 +53,15 @@ class S3Upload implements UploadInterface
         $config = [
             'version' => '2006-03-01',
             'region'  => $region,
+            'endpoint' => Env::get('AWS_ENDPOINT', 'http://localstack:4566'),
         ];
 
         if (!$deploy) {
             $config['use_path_style_endpoint'] = true;
-            $config['endpoint'] = Env::get('AWS_ENDPOINT');
+        }
 
-            $key = Env::get('AWS_ACCESS_KEY_ID');
-            $secret = Env::get('AWS_SECRET_ACCESS_KEY');
-
-            if ($key && $secret) {
-                $config['credentials'] = [
-                    'key'    => $key,
-                    'secret' => $secret,
-                ];
-            }
-        }else{
-            $config['endpoint'] = Env::get('AWS_ENDPOINT', 'http://localstack:4566');
-            if(!Env::get('USE_IAM'))
-            $key = Env::get('AWS_ACCESS_KEY_ID', 'test');
-            $secret = Env::get('AWS_SECRET_ACCESS_KEY', 'test');
+        if ($credentials = $this->getCredentialsIfApplicable()) {
+            $config['credentials'] = $credentials;
         }
 
         return $config;

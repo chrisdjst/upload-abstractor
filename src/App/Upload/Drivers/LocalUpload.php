@@ -1,7 +1,7 @@
 <?php
-namespace App\Upload\Drivers;
+namespace UploadAbstractor\Drivers;
 
-use App\Upload\Interfaces\UploadInterface;
+use UploadAbstractor\Interfaces\UploadInterface;
 
 class LocalUpload implements UploadInterface
 {

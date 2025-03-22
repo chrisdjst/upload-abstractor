@@ -1,6 +1,6 @@
 <?php
 
-namespace UploadAbstraction\Support;
+namespace UploadAbstractor\Support;
 
 class Env
 {

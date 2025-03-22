@@ -1,11 +1,16 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use App\Upload\UploadFile;
-use App\Upload\Enums\UploadDriver;
+use UploadAbstractor\UploadFile;
+use UploadAbstractor\Enums\UploadDriver;
 
 class UploadFileTest extends TestCase
 {
+
+    /**
+     * @covers UploadAbstractor\UploadFile
+     * @covers UploadAbstractor\Drivers\LocalUpload
+     */
     public function testCanCreateLocalRepository()
     {
         $upload = new UploadFile(UploadDriver::LOCAL);
@@ -13,6 +18,9 @@ class UploadFileTest extends TestCase
         $this->assertTrue($result);
     }
 
+    /**
+     * @covers UploadAbstractor\UploadFile
+     */
     public function testCanUploadFileLocally()
     {
         $upload = new UploadFile(UploadDriver::LOCAL);
@@ -25,6 +33,10 @@ class UploadFileTest extends TestCase
         $this->assertFileExists($result);
     }
 
+    /**
+     * @covers UploadAbstractor\UploadFile
+     * @covers UploadAbstractor\Drivers\LocalUpload
+     */
     public function testCanListLocalBuckets()
     {
         $upload = new UploadFile(UploadDriver::LOCAL);
@@ -36,6 +48,10 @@ class UploadFileTest extends TestCase
         $this->assertContains('bucket2', $buckets);
     }
 
+    /**
+     * @covers UploadAbstractor\UploadFile
+     * @covers UploadAbstractor\Drivers\LocalUpload
+     */
     public function testCanListLocalObjects()
     {
         $upload = new UploadFile(UploadDriver::LOCAL);
