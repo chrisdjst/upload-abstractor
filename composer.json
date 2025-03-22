@@ -1,5 +1,5 @@
 {
-    "name": "seuvendor/upload-abstraction",
+    "name": "chrisdjst/upload-abstractor",
     "description": "Abstração SOLID para upload com suporte a S3 e armazenamento local.",
     "type": "library",
     "license": "MIT",
@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "UploadAbstraction\\": "src/"
+            "UploadAbstractor\\": "src/App/Upload/"
         }
     },
     "require-dev": {

@@ -1,13 +1,21 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use App\Upload\UploadFile;
-use App\Upload\Enums\UploadDriver;
+use UploadAbstractor\UploadFile;
+use UploadAbstractor\Enums\UploadDriver;
 
 class S3UploadTest extends TestCase
 {
     private string $bucket = 'php-unit-bucket';
 
+    /**
+     * @covers UploadAbstractor\UploadFile
+     * @covers UploadAbstractor\Drivers\S3Upload
+     *
+     * Tests that a new S3 bucket can be created successfully.
+     * Asserts that the createRepository method returns true 
+     * when the bucket is created.
+     */
     public function testCanCreateS3Bucket()
     {
         $upload = new UploadFile(UploadDriver::S3);
@@ -15,6 +23,10 @@ class S3UploadTest extends TestCase
         $this->assertTrue($result);
     }
 
+    /**
+     * @covers UploadAbstractor\UploadFile
+     * @covers UploadAbstractor\Drivers\S3Upload
+     */
     public function testCanUploadToS3()
     {
         $upload = new UploadFile(UploadDriver::S3);
@@ -28,6 +40,10 @@ class S3UploadTest extends TestCase
         $this->assertStringContainsString('teste-s3.txt', $url);
     }
 
+    /**
+     * @covers UploadAbstractor\UploadFile
+     * @covers UploadAbstractor\Drivers\S3Upload
+     */
     public function testCanListS3Buckets()
     {
         $upload = new UploadFile(UploadDriver::S3);
@@ -37,6 +53,10 @@ class S3UploadTest extends TestCase
         $this->assertContains($this->bucket, $buckets);
     }
 
+    /**
+     * @covers UploadAbstractor\UploadFile
+     * @covers UploadAbstractor\Drivers\S3Upload
+     */
     public function testCanListS3Objects()
     {
         $upload = new UploadFile(UploadDriver::S3);

@@ -1,5 +1,5 @@
 <?php
-namespace App\Upload\Interfaces;
+namespace UploadAbstractor\Interfaces;
 
 interface UploadInterface
 {

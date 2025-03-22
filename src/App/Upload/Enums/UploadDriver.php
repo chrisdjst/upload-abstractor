@@ -1,5 +1,5 @@
 <?php
-namespace App\Upload\Enums;
+namespace UploadAbstractor\Enums;
 
 enum UploadDriver: string
 {
