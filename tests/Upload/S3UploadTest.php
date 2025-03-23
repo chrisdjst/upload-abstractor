@@ -3,7 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use UploadAbstractor\UploadFile;
 use UploadAbstractor\Enums\UploadDriver;
-
+use UploadAbstractor\Support\EnvManager;
 class S3UploadTest extends TestCase
 {
     private string $bucket = 'php-unit-bucket';
@@ -49,7 +49,7 @@ class S3UploadTest extends TestCase
         $upload = new UploadFile(UploadDriver::S3);
         $upload->createRepository($this->bucket);
 
-        $buckets = $upload->listBuckets();
+        $buckets = $upload->listRepositories();
         $this->assertContains($this->bucket, $buckets);
     }
 

@@ -1,24 +1,26 @@
 <?php
+
 namespace UploadAbstractor\Drivers;
 
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 use UploadAbstractor\Interfaces\UploadInterface;
-use UploadAbstractor\Support\Env;
+use UploadAbstractor\Support\EnvManager;
 
 class S3Upload implements UploadInterface
 {
     private S3Client $client;
+    private EnvManager $env;
 
-    public function __construct(string $region = 'us-east-1')
+    public function __construct(?EnvManager $env = null)
     {
+        $this->env = $env ?? new EnvManager();
         $this->client = new S3Client($this->buildConfig());
     }
 
-
     private function shouldUseIam(): bool
     {
-        return Env::get('USE_IAM', 'false') === 'true';
+        return $this->env->get('USE_IAM', 'false') === 'true';
     }
 
     private function getCredentialsIfApplicable(): ?array
@@ -27,36 +29,27 @@ class S3Upload implements UploadInterface
             return null;
         }
 
-        $key = Env::get('AWS_ACCESS_KEY_ID', 'test');
-        $secret = Env::get('AWS_SECRET_ACCESS_KEY', 'test');
+        $key = $this->env->get('AWS_ACCESS_KEY_ID', 'test');
+        $secret = $this->env->get('AWS_SECRET_ACCESS_KEY', 'test');
 
-        if ($key && $secret) {
-            return [
-                'key' => $key,
-                'secret' => $secret,
-            ];
-        }
-
-        return null;
+        return $key && $secret ? [
+            'key' => $key,
+            'secret' => $secret,
+        ] : null;
     }
 
-    /**
-     * Monta dinamicamente o array de configuração para o S3Client.
-     *
-     * @return array
-     */
     private function buildConfig(): array
     {
-        $region = Env::get('AWS_REGION', 'us-east-1');
-        $deploy = Env::get('DEPLOY', 'false') === 'true';
+        $region = $this->env->get('AWS_REGION', 'us-east-1');
+        $deploy = $this->env->get('DEPLOY', 'false') === 'true';
 
         $config = [
             'version' => '2006-03-01',
             'region'  => $region,
-            'endpoint' => Env::get('AWS_ENDPOINT', 'http://localstack:4566'),
+            'endpoint' => $this->env->get('AWS_ENDPOINT', 'http://localhost:4566'),
         ];
 
-        if (!$deploy) {
+        if ($deploy) {
             $config['use_path_style_endpoint'] = true;
         }
 
@@ -66,13 +59,6 @@ class S3Upload implements UploadInterface
 
         return $config;
     }
-
-    /**
-     * Cria um bucket S3.
-     *
-     * @param string $bucket nome do bucket a ser criado
-     * @return bool true se o bucket for criado com sucesso, false caso contrário
-     */
 
     public function createRepository(string $bucket): bool
     {
@@ -101,7 +87,7 @@ class S3Upload implements UploadInterface
         }
     }
 
-    public function listBuckets(): array
+    public function listRepositories(): array
     {
         try {
             $result = $this->client->listBuckets();

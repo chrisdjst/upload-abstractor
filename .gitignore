@@ -7,3 +7,5 @@
 .DS_Store
 *.log
 .phpunit.cache
+composer.lock
+test.php

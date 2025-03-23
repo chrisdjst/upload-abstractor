@@ -5,16 +5,19 @@ use UploadAbstractor\Enums\UploadDriver;
 use UploadAbstractor\Interfaces\UploadInterface;
 use UploadAbstractor\Drivers\S3Upload;
 use UploadAbstractor\Drivers\LocalUpload;
+use UploadAbstractor\Support\EnvManager;
 
 class UploadFile
 {
     private UploadInterface $driver;
 
-    public function __construct(UploadDriver $option)
+    public function __construct(UploadDriver $option, ?EnvManager $env = null)
     {
+        $env ??= EnvManager::createWithDefaultReaders();
+
         $this->driver = match ($option) {
-            UploadDriver::S3 => new S3Upload(),
-            UploadDriver::LOCAL => new LocalUpload()
+            UploadDriver::S3 => new S3Upload($env),
+            UploadDriver::LOCAL => new LocalUpload(),
         };
     }
 
@@ -33,9 +36,9 @@ class UploadFile
         return $this->driver->upload($bucket, $key, $filePath);
     }
 
-    public function listBuckets(): array
+    public function listRepositories(): array
     {
-        return $this->driver->listBuckets();
+        return $this->driver->listRepositories();
     }
 
     public function listObjects(string $bucket): array

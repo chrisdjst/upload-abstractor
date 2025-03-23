@@ -43,7 +43,7 @@ class UploadFileTest extends TestCase
         $upload->createRepository('bucket1');
         $upload->createRepository('bucket2');
 
-        $buckets = $upload->listBuckets();
+        $buckets = $upload->listRepositories();
         $this->assertContains('bucket1', $buckets);
         $this->assertContains('bucket2', $buckets);
     }
