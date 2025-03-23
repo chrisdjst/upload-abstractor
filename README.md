@@ -1,18 +1,27 @@
-# Upload Abstraction
+# Upload Abstraction for PHP
 
-Abstração SOLID para upload de arquivos com suporte a múltiplos drivers como S3 (AWS ou LocalStack) e sistema de arquivos local.
+_A SOLID file upload layer with support for AWS S3, LocalStack and local filesystem._
 
-## 🚀 Recursos
+![PHP Version](https://img.shields.io/badge/php-^8.1-blue)
+![License](https://img.shields.io/github/license/yourvendor/upload-abstraction)
 
-- Upload para Amazon S3 ou sistema local
-- Listagem de buckets e arquivos
-- Criação de buckets (repositórios)
-- Arquitetura orientada a interfaces (SOLID)
-- Compatível com PHPUnit para testes automatizados
+## 🤔 Why?
 
-## 📦 Instalação via Composer
+Uploading files across different environments often requires switching between storage backends. This library provides a clean, testable abstraction over multiple drivers using SOLID principles, making your code easier to maintain and extend.
+
+## 🚀 Features
+
+-   Upload to Amazon S3, LocalStack, or local filesystem
+-   List buckets and files
+-   Create buckets (repositories)
+-   Interface-driven architecture (SOLID principles)
+-   Compatible with PHPUnit for automated testing
+-   Easily extendable with custom drivers
+
+## 📦 Installation via Composer
 
 ### Local
+
 ```json
 "repositories": [
   {
@@ -21,48 +30,76 @@ Abstração SOLID para upload de arquivos com suporte a múltiplos drivers como 
   }
 ],
 "require": {
-  "seuvendor/upload-abstraction": "*"
+  "yourvendor/upload-abstraction": "*"
 }
 ```
 
-### Packagist (exemplo futuro)
+### Packagist (future example)
+
 ```bash
-composer require seuvendor/upload-abstraction
+composer require yourvendor/upload-abstraction
 ```
 
-## ✅ Exemplo de Uso
+## ✅ Usage Example
 
 ```php
 use UploadAbstraction\UploadFile;
 use UploadAbstraction\Enums\UploadDriver;
 
 $upload = new UploadFile(UploadDriver::S3);
-$upload->createRepository('meu-bucket');
-$upload->upload('meu-bucket', 'arquivo.txt', '/tmp/arquivo.txt');
-$arquivos = $upload->listObjects('meu-bucket');
+$upload->createRepository('my-bucket');
+$upload->upload('my-bucket', 'file.txt', '/tmp/file.txt');
+$files = $upload->listObjects('my-bucket');
 ```
 
-## 🧪 Testes
+## ⚙️ Configuration (Optional)
+
+Create a `.env` file if needed:
+
+```dotenv
+UPLOAD_DRIVER=s3
+AWS_REGION=us-east-1
+AWS_ENDPOINT=http://localstack:4566
+AWS_ACCESS_KEY_ID=test
+AWS_SECRET_ACCESS_KEY=test
+```
+
+## 🧪 Running Tests
 
 ```bash
 composer install
 vendor/bin/phpunit
 ```
 
-## 🐳 Suporte a LocalStack (Docker)
-```yaml
-version: '3.8'
-services:
-  localstack:
-    image: localstack/localstack
-    ports:
-      - "4566:4566"
-    environment:
-      - SERVICES=s3
-      - AWS_DEFAULT_REGION=us-east-1
+Generate code coverage:
+
+```bash
+vendor/bin/phpunit --coverage-html coverage/
 ```
 
-## 📁 Estrutura
+## 🐳 LocalStack Support (Docker)
 
-- `src/` - Código fonte
-- `tests/` - Testes unitários
+```yaml
+version: "3.8"
+services:
+    localstack:
+        image: localstack/localstack
+        ports:
+            - "4566:4566"
+        environment:
+            - SERVICES=s3
+            - AWS_DEFAULT_REGION=us-east-1
+```
+
+## 📚 Extendable Architecture
+
+You can add custom storage drivers by implementing the `UploadAbstraction\Contracts\UploadDriverInterface` interface. This allows seamless integration with other providers (e.g. Google Cloud Storage, Azure Blob Storage).
+
+## 📁 Project Structure
+
+-   `src/` – Source code
+-   `tests/` – Unit tests
+
+---
+
+Licensed under MIT. Contributions are welcome!
