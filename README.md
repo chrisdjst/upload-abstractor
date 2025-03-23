@@ -34,10 +34,10 @@ Uploading files across different environments often requires switching between s
 }
 ```
 
-### Packagist (future example)
+### Packagist
 
 ```bash
-composer require yourvendor/upload-abstraction
+composer require chrisdjst/upload-abstraction
 ```
 
 ## ✅ Usage Example
