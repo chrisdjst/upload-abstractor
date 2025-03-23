@@ -1,0 +1,40 @@
+# ================================
+# 1. Normalize line endings
+# ================================
+* text=auto eol=lf
+
+*.sh text eol=lf
+
+*.php text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.vue text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# ================================
+# 2. Linguist override (GitHub)
+# ================================
+
+/composer.lock linguist-generated
+/package-lock.json linguist-generated
+/yarn.lock linguist-generated
+/vendor/** linguist-vendored
+/node_modules/** linguist-vendored
+/tools/** linguist-vendored
+
+# ================================
+# 3. Merge Strategy
+# ================================
+composer.lock merge=union
+package-lock.json merge=union
+yarn.lock merge=union
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
