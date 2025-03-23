@@ -1,23 +1,24 @@
-# ================================
-# 1. Normalize line endings
-# ================================
+# ===============================
+# 1. Line ending normalization
+# ===============================
+# Automatically normalize line endings to LF across all files
 * text=auto eol=lf
 
+# Force LF line endings for specific file types
 *.sh text eol=lf
-
 *.php text eol=lf
 *.js text eol=lf
 *.ts text eol=lf
 *.vue text eol=lf
 *.json text eol=lf
-*.md text eol=lf
 *.yml text eol=lf
 *.yaml text eol=lf
+*.md text eol=lf
 
-# ================================
-# 2. Linguist override (GitHub)
-# ================================
-
+# ===============================
+# 2. GitHub Linguist configuration
+# ===============================
+# Mark generated and vendored files/folders to exclude from language stats
 /composer.lock linguist-generated
 /package-lock.json linguist-generated
 /yarn.lock linguist-generated
@@ -25,16 +26,55 @@
 /node_modules/** linguist-vendored
 /tools/** linguist-vendored
 
-# ================================
-# 3. Merge Strategy
-# ================================
+# ===============================
+# 3. Merge strategy configuration
+# ===============================
+# Treat lock files with a union merge strategy to reduce conflicts
 composer.lock merge=union
 package-lock.json merge=union
 yarn.lock merge=union
 
+# Treat binary files as binary to prevent automatic diff/merge
 *.png binary
 *.jpg binary
 *.jpeg binary
 *.gif binary
 *.ico binary
 *.pdf binary
+
+# ===============================
+# 4. Export-ignore rules for git archive
+# ===============================
+# Ignore development-related files and directories when exporting via git archive
+.husky/ export-ignore
+tools/ export-ignore
+.github/ export-ignore
+.gitlab/ export-ignore
+.gitattributes export-ignore
+.editorconfig export-ignore
+.eslintrc.js export-ignore
+commitlint.config.js export-ignore
+
+# CI/CD configuration files
+.gitlab-ci.yml export-ignore
+.github/workflows/ export-ignore
+
+# Lock and dependency folders
+composer.lock export-ignore
+package-lock.json export-ignore
+yarn.lock export-ignore
+vendor/ export-ignore
+node_modules/ export-ignore
+
+# Testing and environment files
+tests/ export-ignore
+phpunit.xml export-ignore
+phpunit.xml.dist export-ignore
+.env.example export-ignore
+.env export-ignore
+
+# Internal documentation
+README.md export-ignore
+README_DEV.md export-ignore
+docs/ export-ignore
+CHANGELOG.md export-ignore
