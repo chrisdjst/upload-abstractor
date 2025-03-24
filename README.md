@@ -43,10 +43,10 @@ composer require chrisdjst/upload-abstraction
 ## ✅ Usage Example
 
 ```php
-use UploadAbstraction\UploadFile;
-use UploadAbstraction\Enums\UploadDriver;
+use UploadAbstraction\UploaderFile;
+use UploadAbstraction\Enums\UploaderDriver;
 
-$upload = new UploadFile(UploadDriver::S3);
+$upload = new UploaderFile(UploaderDriver::S3);
 $upload->createRepository('my-bucket');
 $upload->upload('my-bucket', 'file.txt', '/tmp/file.txt');
 $files = $upload->listObjects('my-bucket');
@@ -93,7 +93,7 @@ services:
 
 ## 📚 Extendable Architecture
 
-You can add custom storage drivers by implementing the `UploadAbstraction\Contracts\UploadDriverInterface` interface. This allows seamless integration with other providers (e.g. Google Cloud Storage, Azure Blob Storage).
+You can add custom storage drivers by implementing the `UploadAbstraction\Contracts\UploaderDriverInterface` interface. This allows seamless integration with other providers (e.g. Google Cloud Storage, Azure Blob Storage).
 
 ## 📁 Project Structure
 

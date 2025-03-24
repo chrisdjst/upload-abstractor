@@ -1,10 +1,10 @@
 <?php
 
-namespace UploadAbstractor\Support;
+namespace EnvManager;
 
-use UploadAbstractor\Support\Contracts\EnvironmentInterface;
-use UploadAbstractor\Support\Loaders\DotenvLoader;
-use UploadAbstractor\Support\Readers\{ArrayEnvReader, ServerEnvReader, GetenvReader};
+use EnvManager\Contracts\EnvironmentInterface;
+use EnvManager\Loaders\DotenvLoader;
+use EnvManager\Readers\{ArrayEnvReader, ServerEnvReader, GetenvReader};
 
 class EnvManager
 {

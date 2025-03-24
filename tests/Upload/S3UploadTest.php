@@ -1,15 +1,15 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use UploadAbstractor\UploadFile;
-use UploadAbstractor\Enums\UploadDriver;
-use UploadAbstractor\Support\EnvManager;
+use UploadAbstractor\UploaderFile;
+use UploadAbstractor\Enums\UploaderDriver;
+use EnvManager\EnvManager;
 class S3UploadTest extends TestCase
 {
     private string $bucket = 'php-unit-bucket';
 
     /**
-     * @covers UploadAbstractor\UploadFile
+     * @covers UploadAbstractor\UploaderFile
      * @covers UploadAbstractor\Drivers\S3Upload
      *
      * Tests that a new S3 bucket can be created successfully.
@@ -18,18 +18,18 @@ class S3UploadTest extends TestCase
      */
     public function testCanCreateS3Bucket()
     {
-        $upload = new UploadFile(UploadDriver::S3);
+        $upload = new UploaderFile(UploaderDriver::S3);
         $result = $upload->createRepository($this->bucket);
         $this->assertTrue($result);
     }
 
     /**
-     * @covers UploadAbstractor\UploadFile
+     * @covers UploadAbstractor\UploaderFile
      * @covers UploadAbstractor\Drivers\S3Upload
      */
     public function testCanUploadToS3()
     {
-        $upload = new UploadFile(UploadDriver::S3);
+        $upload = new UploaderFile(UploaderDriver::S3);
         $upload->createRepository($this->bucket);
 
         $filePath = tempnam(sys_get_temp_dir(), 's3upl');
@@ -41,12 +41,12 @@ class S3UploadTest extends TestCase
     }
 
     /**
-     * @covers UploadAbstractor\UploadFile
+     * @covers UploadAbstractor\UploaderFile
      * @covers UploadAbstractor\Drivers\S3Upload
      */
     public function testCanListS3Buckets()
     {
-        $upload = new UploadFile(UploadDriver::S3);
+        $upload = new UploaderFile(UploaderDriver::S3);
         $upload->createRepository($this->bucket);
 
         $buckets = $upload->listRepositories();
@@ -54,12 +54,12 @@ class S3UploadTest extends TestCase
     }
 
     /**
-     * @covers UploadAbstractor\UploadFile
+     * @covers UploadAbstractor\UploaderFile
      * @covers UploadAbstractor\Drivers\S3Upload
      */
     public function testCanListS3Objects()
     {
-        $upload = new UploadFile(UploadDriver::S3);
+        $upload = new UploaderFile(UploaderDriver::S3);
         $upload->createRepository($this->bucket);
 
         $filePath = tempnam(sys_get_temp_dir(), 's3upl');

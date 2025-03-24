@@ -1,6 +1,6 @@
 <?php
 
-namespace UploadAbstractor\Support\Loaders;
+namespace EnvManager\Loaders;
 
 class DotenvLoader
 {

@@ -4,10 +4,10 @@ namespace UploadAbstractor\Drivers;
 
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
-use UploadAbstractor\Interfaces\UploadInterface;
-use UploadAbstractor\Support\EnvManager;
+use UploadAbstractor\Interfaces\UploaderInterface;
+use EnvManager\EnvManager;
 
-class S3Upload implements UploadInterface
+class S3Upload implements UploaderInterface
 {
     private S3Client $client;
     private EnvManager $env;
