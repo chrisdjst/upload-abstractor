@@ -37,7 +37,7 @@ class EnvManager
 
     public static function createWithDefaultReaders(): self
     {
-        $instance = new self(new DotenvLoader(), dirname(__DIR__, 2));
+        $instance = new self(new DotenvLoader(), getcwd());
         $instance->addReader(new ArrayEnvReader());
         $instance->addReader(new ServerEnvReader());
         $instance->addReader(new GetenvReader());
