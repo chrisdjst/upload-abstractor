@@ -1,27 +1,27 @@
 <?php
 namespace UploadAbstractor;
 
-use UploadAbstractor\Enums\UploadDriver;
-use UploadAbstractor\Interfaces\UploadInterface;
+use UploadAbstractor\Enums\UploaderDriver;
+use UploadAbstractor\Interfaces\UploaderInterface;
 use UploadAbstractor\Drivers\S3Upload;
 use UploadAbstractor\Drivers\LocalUpload;
-use UploadAbstractor\Support\EnvManager;
+use EnvManager\EnvManager;
 
-class UploadFile
+class UploaderFile
 {
-    private UploadInterface $driver;
+    private UploaderInterface $driver;
 
-    public function __construct(UploadDriver $option, ?EnvManager $env = null)
+    public function __construct(UploaderDriver $option, ?EnvManager $env = null)
     {
         $env ??= EnvManager::createWithDefaultReaders();
 
         $this->driver = match ($option) {
-            UploadDriver::S3 => new S3Upload($env),
-            UploadDriver::LOCAL => new LocalUpload(),
+            UploaderDriver::S3 => new S3Upload($env),
+            UploaderDriver::LOCAL => new LocalUpload(),
         };
     }
 
-    public function getDriver(): UploadInterface
+    public function getDriver(): UploaderInterface
     {
         return $this->driver;
     }

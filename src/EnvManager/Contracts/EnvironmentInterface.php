@@ -1,6 +1,6 @@
 <?php
 
-namespace UploadAbstractor\Support\Contracts;
+namespace EnvManager\Contracts;
 
 interface EnvironmentInterface
 {

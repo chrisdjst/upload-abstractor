@@ -1,29 +1,29 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use UploadAbstractor\UploadFile;
-use UploadAbstractor\Enums\UploadDriver;
+use UploadAbstractor\UploaderFile;
+use UploadAbstractor\Enums\UploaderDriver;
 
 class UploadFileTest extends TestCase
 {
 
     /**
-     * @covers UploadAbstractor\UploadFile
+     * @covers UploadAbstractor\UploaderFile
      * @covers UploadAbstractor\Drivers\LocalUpload
      */
     public function testCanCreateLocalRepository()
     {
-        $upload = new UploadFile(UploadDriver::LOCAL);
+        $upload = new UploaderFile(UploaderDriver::LOCAL);
         $result = $upload->createRepository('test-bucket');
         $this->assertTrue($result);
     }
 
     /**
-     * @covers UploadAbstractor\UploadFile
+     * @covers UploadAbstractor\UploaderFile
      */
-    public function testCanUploadFileLocally()
+    public function testCanUploaderFileLocally()
     {
-        $upload = new UploadFile(UploadDriver::LOCAL);
+        $upload = new UploaderFile(UploaderDriver::LOCAL);
         $upload->createRepository('test-bucket');
 
         $tempFile = tempnam(sys_get_temp_dir(), 'upl');
@@ -34,12 +34,12 @@ class UploadFileTest extends TestCase
     }
 
     /**
-     * @covers UploadAbstractor\UploadFile
+     * @covers UploadAbstractor\UploaderFile
      * @covers UploadAbstractor\Drivers\LocalUpload
      */
     public function testCanListLocalBuckets()
     {
-        $upload = new UploadFile(UploadDriver::LOCAL);
+        $upload = new UploaderFile(UploaderDriver::LOCAL);
         $upload->createRepository('bucket1');
         $upload->createRepository('bucket2');
 
@@ -49,12 +49,12 @@ class UploadFileTest extends TestCase
     }
 
     /**
-     * @covers UploadAbstractor\UploadFile
+     * @covers UploadAbstractor\UploaderFile
      * @covers UploadAbstractor\Drivers\LocalUpload
      */
     public function testCanListLocalObjects()
     {
-        $upload = new UploadFile(UploadDriver::LOCAL);
+        $upload = new UploaderFile(UploaderDriver::LOCAL);
         $upload->createRepository('test-bucket');
 
         $filePath = sys_get_temp_dir() . '/exemplo.txt';

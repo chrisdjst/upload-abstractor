@@ -1,8 +1,8 @@
 <?php
 
-namespace UploadAbstractor\Support\Readers;
+namespace EnvManager\Readers;
 
-use UploadAbstractor\Support\Contracts\EnvironmentInterface;
+use EnvManager\Contracts\EnvironmentInterface;
 
 class ArrayEnvReader implements EnvironmentInterface
 {

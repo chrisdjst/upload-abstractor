@@ -1,9 +1,9 @@
 <?php
 namespace UploadAbstractor\Drivers;
 
-use UploadAbstractor\Interfaces\UploadInterface;
+use UploadAbstractor\Interfaces\UploaderInterface;
 
-class LocalUpload implements UploadInterface
+class LocalUpload implements UploaderInterface
 {
     public function __construct(
         private readonly string $basePath = '/tmp/uploads'
