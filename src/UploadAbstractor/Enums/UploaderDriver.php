@@ -1,8 +1,8 @@
 <?php
-namespace UploadAbstractor\Enums;
+    namespace UploadAbstractor\Enums;
 
 enum UploaderDriver: string
 {
-    case S3 = 's3';
-    case LOCAL = 'local';
+case S3 = 's3';
+case LOCAL = 'local';
 }
