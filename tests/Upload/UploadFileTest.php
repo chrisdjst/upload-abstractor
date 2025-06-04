@@ -3,6 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use UploadAbstractor\UploaderFile;
 use UploadAbstractor\Enums\UploaderDriver;
+use UploadAbstractor\Factories\UploaderDriverFactory;
 
 class UploadFileTest extends TestCase
 {
@@ -13,7 +14,8 @@ class UploadFileTest extends TestCase
      */
     public function testCanCreateLocalRepository()
     {
-        $upload = new UploaderFile(UploaderDriver::LOCAL);
+        $driver = UploaderDriverFactory::create(UploaderDriver::LOCAL);
+        $upload = new UploaderFile($driver);
         $result = $upload->createRepository('test-bucket');
         $this->assertTrue($result);
     }
@@ -23,7 +25,8 @@ class UploadFileTest extends TestCase
      */
     public function testCanUploaderFileLocally()
     {
-        $upload = new UploaderFile(UploaderDriver::LOCAL);
+        $driver = UploaderDriverFactory::create(UploaderDriver::LOCAL);
+        $upload = new UploaderFile($driver);
         $upload->createRepository('test-bucket');
 
         $tempFile = tempnam(sys_get_temp_dir(), 'upl');
@@ -39,7 +42,8 @@ class UploadFileTest extends TestCase
      */
     public function testCanListLocalBuckets()
     {
-        $upload = new UploaderFile(UploaderDriver::LOCAL);
+        $driver = UploaderDriverFactory::create(UploaderDriver::LOCAL);
+        $upload = new UploaderFile($driver);
         $upload->createRepository('bucket1');
         $upload->createRepository('bucket2');
 
@@ -54,7 +58,8 @@ class UploadFileTest extends TestCase
      */
     public function testCanListLocalObjects()
     {
-        $upload = new UploaderFile(UploaderDriver::LOCAL);
+        $driver = UploaderDriverFactory::create(UploaderDriver::LOCAL);
+        $upload = new UploaderFile($driver);
         $upload->createRepository('test-bucket');
 
         $filePath = sys_get_temp_dir() . '/exemplo.txt';
